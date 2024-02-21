@@ -7,6 +7,7 @@ import re
 import sys
 
 
+
 #
 # Complete the 'encodeMessage' function below.
 #
@@ -17,8 +18,8 @@ import sys
 #
 def splitIntoSentences(text):
     
-    text = text.replace("-"," ").replace("!",".").replace("?",".").replace("/"," ")
-    sentencesText = text.split(".")
+    text = text.replace("-"," ").replace("!  ","ß").replace("?  ","ß").replace("/"," ").replace(".  ","ß").replace("..."," ").replace("...  ","ß")
+    sentencesText = text.split("ß")
     
     for i in range(0, len(sentencesText)):
         sentencesText[i] = sentencesText[i]
@@ -63,11 +64,12 @@ def encodeMessage(text, message):
     code = ""
     alnumCount = 0
     for i in range(0, len(message)):
+       
         if message[i].isalnum():
             alnumCount+=1
-            code+= findOccurrence(charDict, textArray, message[i], alnumCount)+" "
+            code+=findOccurrence(charDict, textArray, message[i], alnumCount)+" "
         else:
-            if code[-1] == " ":   
+            if len(code) > 1 and code[-1] == " ":   
                 code = code[:-1]
             if message[i]==" ":
                 code+="_"
@@ -75,6 +77,7 @@ def encodeMessage(text, message):
                 code+=message[i]
     return code
     
+
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
